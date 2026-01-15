@@ -4,28 +4,29 @@ namespace App\adminmodel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CategoryModal extends Model
+class SubcategoryModal extends Model
 {
-    protected $table = 'category';
+    protected $table = 'subcategories';
     public $timestamps = true;
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name', 'slug', 'description', 'image', 'sort_order', 
+        'category_id', 'name', 'slug', 'description', 'image', 'sort_order', 
         'meta_title', 'meta_description', 'ip', 'added_by', 'is_active'
     ];
+    
     use SoftDeletes;
     protected $del = ['deleted_at'];
 
-    // Relationship with Subcategories
-    public function subcategories()
+    // Relationship with Category
+    public function category()
     {
-        return $this->hasMany(SubcategoryModal::class, 'category_id');
+        return $this->belongsTo(CategoryModal::class, 'category_id');
     }
 
     // Relationship with Products
     public function products()
     {
-        return $this->hasMany(ProductModal::class, 'category_id');
+        return $this->hasMany(ProductModal::class, 'subcategory_id');
     }
 }

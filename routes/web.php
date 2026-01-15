@@ -71,6 +71,34 @@ Route::post('/add_settings_process', [CrmController::class, 'add_settings_proces
 Route::post('/update_settings_process/{id}', [CrmController::class, 'update_settings_process'])->name('update_settings_process');
 Route::get('/deletesetting/{id}', [CrmController::class, 'deletesetting'])->name('deletesetting');
 
+// Admin Categories ------------------------
+Route::get('/view_categories', [CategoryController::class, 'view_categories'])->name('view_categories');
+Route::get('/add_category_view', [CategoryController::class, 'add_category_view'])->name('add_category_view');
+Route::post('/add_category_process', [CategoryController::class, 'add_category_process'])->name('add_category_process');
+Route::get('/edit_category_view/{id}', [CategoryController::class, 'edit_category_view'])->name('edit_category_view');
+Route::post('/update_category_process/{id}', [CategoryController::class, 'update_category_process'])->name('update_category_process');
+Route::get('/update_category_status/{status}/{id}', [CategoryController::class, 'update_category_status'])->name('update_category_status');
+Route::get('/delete_category/{id}', [CategoryController::class, 'delete_category'])->name('delete_category');
+
+// Admin Subcategories ------------------------
+Route::get('/view_subcategories', [CategoryController::class, 'view_subcategories'])->name('view_subcategories');
+Route::get('/add_subcategory_view', [CategoryController::class, 'add_subcategory_view'])->name('add_subcategory_view');
+Route::post('/add_subcategory_process', [CategoryController::class, 'add_subcategory_process'])->name('add_subcategory_process');
+Route::get('/edit_subcategory_view/{id}', [CategoryController::class, 'edit_subcategory_view'])->name('edit_subcategory_view');
+Route::post('/update_subcategory_process/{id}', [CategoryController::class, 'update_subcategory_process'])->name('update_subcategory_process');
+Route::get('/update_subcategory_status/{status}/{id}', [CategoryController::class, 'update_subcategory_status'])->name('update_subcategory_status');
+Route::get('/delete_subcategory/{id}', [CategoryController::class, 'delete_subcategory'])->name('delete_subcategory');
+
+// Admin Products ------------------------
+Route::get('/view_products', [CategoryController::class, 'view_products'])->name('view_products');
+Route::get('/add_product_view', [CategoryController::class, 'add_product_view'])->name('add_product_view');
+Route::post('/add_product_process', [CategoryController::class, 'add_product_process'])->name('add_product_process');
+Route::get('/edit_product_view/{id}', [CategoryController::class, 'edit_product_view'])->name('edit_product_view');
+Route::post('/update_product_process/{id}', [CategoryController::class, 'update_product_process'])->name('update_product_process');
+Route::get('/update_product_status/{status}/{id}', [CategoryController::class, 'update_product_status'])->name('update_product_status');
+Route::get('/delete_product/{id}', [CategoryController::class, 'delete_product'])->name('delete_product');
+Route::get('/get_subcategories', [CategoryController::class, 'get_subcategories'])->name('get_subcategories');
+
     });
 
 });
