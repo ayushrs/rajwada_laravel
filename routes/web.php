@@ -99,6 +99,10 @@ Route::get('/update_product_status/{status}/{id}', [CategoryController::class, '
 Route::get('/delete_product/{id}', [CategoryController::class, 'delete_product'])->name('delete_product');
 Route::get('/get_subcategories', [CategoryController::class, 'get_subcategories'])->name('get_subcategories');
 
+//Users
+
+    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+
     });
 
 });
