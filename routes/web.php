@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ComboProductController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\CrmController;
@@ -98,6 +99,15 @@ Route::post('/update_product_process/{id}', [CategoryController::class, 'update_
 Route::get('/update_product_status/{status}/{id}', [CategoryController::class, 'update_product_status'])->name('update_product_status');
 Route::get('/delete_product/{id}', [CategoryController::class, 'delete_product'])->name('delete_product');
 Route::get('/get_subcategories', [CategoryController::class, 'get_subcategories'])->name('get_subcategories');
+
+// Admin Combo Products
+Route::get('/view_combo_products', [ComboProductController::class, 'view_combo_products'])->name('view_combo_products');
+Route::get('/add_combo_product_view', [ComboProductController::class, 'add_combo_product_view'])->name('add_combo_product_view');
+Route::post('/add_combo_product_process', [ComboProductController::class, 'add_combo_product_process'])->name('add_combo_product_process');
+Route::get('/edit_combo_product_view/{id}', [ComboProductController::class, 'edit_combo_product_view'])->name('edit_combo_product_view');
+Route::post('/update_combo_product_process/{id}', [ComboProductController::class, 'update_combo_product_process'])->name('update_combo_product_process');
+Route::get('/update_combo_product_status/{status}/{id}', [ComboProductController::class, 'update_combo_product_status'])->name('update_combo_product_status');
+Route::get('/delete_combo_product/{id}', [ComboProductController::class, 'delete_combo_product'])->name('delete_combo_product');
 
 //Users
 
