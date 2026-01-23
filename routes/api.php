@@ -31,12 +31,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/states', [LocationController::class, 'statesWithCities']);
 
 // Cities by state id
-Route::get('/cities/{state_id}', [LocationController::class, 'citiesByState']);
+    Route::get('/cities/{state_id}', [LocationController::class, 'citiesByState']);
 
-Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{id}', [ProductController::class, 'show']);
+    Route::get('/products/search', [ProductController::class, 'search']);
+    Route::get('/products/{id}', [ProductController::class, 'show']);
+    Route::get('/products', [ProductController::class, 'index']);
 
-Route::post('/cart/add', [CartController::class, 'addToCart']);
+    Route::post('/cart/add', [CartController::class, 'addToCart']);
     Route::get('/get_cart', [CartController::class, 'getCart']);
     Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
+
+
+    
 });

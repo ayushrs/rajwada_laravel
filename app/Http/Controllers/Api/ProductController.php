@@ -51,4 +51,36 @@ class ProductController extends Controller
             'data' => $product
         ]);
     }
+
+    public function search(Request $request)
+{
+    $query = ProductModal::where('is_active', 1);
+
+    // Search by keyword
+    if ($request->keyword) {
+        $query->where('name', 'LIKE', '%' . $request->keyword . '%');
+    }
+
+    // Filter by category
+    if ($request->category_id) {
+        $query->where('category_id', $request->category_id);
+    }
+
+    // Filter by price range
+    if ($request->min_price) {
+        $query->where('price', '>=', $request->min_price);
+    }
+
+    if ($request->max_price) {
+        $query->where('price', '<=', $request->max_price);
+    }
+
+    $products = $query->latest()->paginate(10);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Search results',
+        'data' => $products
+    ]);
+}
 }
