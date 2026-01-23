@@ -109,11 +109,17 @@ Route::post('/update_combo_product_process/{id}', [ComboProductController::class
 Route::get('/update_combo_product_status/{status}/{id}', [ComboProductController::class, 'update_combo_product_status'])->name('update_combo_product_status');
 Route::get('/delete_combo_product/{id}', [ComboProductController::class, 'delete_combo_product'])->name('delete_combo_product');
 
+
 //Users
+Route::get('/users', [UserController::class, 'index'])->name('admin.users');
 
-    Route::get('/users', [UserController::class, 'index'])->name('admin.users');
 
-    });
+// Orders
+Route::get('/orders', [OrderController::class, 'index'])->name('admin.orders');
+Route::get('/orders/{id}', [OrderController::class, 'show'])->name('admin.orders.view');
+Route::post('/orders/update-status/{id}', [OrderController::class, 'updateStatus'])->name('admin.orders.status');
+
+});
 
 });
 

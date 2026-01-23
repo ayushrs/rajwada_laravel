@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeDataController;
 use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/get_cart', [CartController::class, 'getCart']);
     Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
 
-
+    Route::post('/orders/place', [OrderController::class, 'placeOrder']);
+    Route::get('/orders', [OrderController::class, 'myOrders']);
+    Route::get('/orders/{id}', [OrderController::class, 'orderDetail']);
     
 });
