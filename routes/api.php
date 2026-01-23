@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeDataController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\ProductController;
@@ -34,4 +35,8 @@ Route::get('/cities/{state_id}', [LocationController::class, 'citiesByState']);
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
+
+Route::post('/cart/add', [CartController::class, 'addToCart']);
+    Route::get('/get_cart', [CartController::class, 'getCart']);
+    Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
 });
