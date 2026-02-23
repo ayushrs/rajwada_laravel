@@ -26,6 +26,12 @@ Route::post('/login', [AuthController::class, 'login']);
 // Public home page data (no auth required)
 Route::get('/homedata', [HomeDataController::class, 'homedata']);
 
+// Public product endpoints (no auth required)
+Route::get('/products/trending', [ProductController::class, 'trending']);
+Route::get('/products/search', [ProductController::class, 'search']);
+Route::get('/products/detail/{id}', [ProductController::class, 'show']);
+Route::get('/products', [ProductController::class, 'index']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -34,11 +40,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Cities by state id
     Route::get('/cities/{state_id}', [LocationController::class, 'citiesByState']);
-
-    Route::get('/products/trending', [ProductController::class, 'trending']);
-    Route::get('/products/search', [ProductController::class, 'search']);
-    Route::get('/products/detail/{id}', [ProductController::class, 'show']);
-    Route::get('/products', [ProductController::class, 'index']);
 
     Route::post('/cart/add', [CartController::class, 'addToCart']);
     Route::get('/get_cart', [CartController::class, 'getCart']);
