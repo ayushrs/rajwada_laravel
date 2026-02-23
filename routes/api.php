@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeDataController;
@@ -34,16 +35,20 @@ Route::middleware('auth:sanctum')->group(function () {
 // Cities by state id
     Route::get('/cities/{state_id}', [LocationController::class, 'citiesByState']);
 
+    Route::get('/products/trending', [ProductController::class, 'trending']);
     Route::get('/products/search', [ProductController::class, 'search']);
-    Route::get('/products/{id}', [ProductController::class, 'show']);
+    Route::get('/products/detail/{id}', [ProductController::class, 'show']);
     Route::get('/products', [ProductController::class, 'index']);
 
     Route::post('/cart/add', [CartController::class, 'addToCart']);
     Route::get('/get_cart', [CartController::class, 'getCart']);
     Route::post('/cart/remove', [CartController::class, 'removeFromCart']);
 
-    Route::post('/orders/place', [OrderController::class, 'placeOrder']);
-    Route::get('/orders', [OrderController::class, 'myOrders']);
+    Route::post('/address', [AddressController::class, 'store']);
+
+    // Order
+    Route::get('/order/calculate', [OrderController::class, 'calculate']);
+    Route::post('/order/place', [OrderController::class, 'placeOrder']);
     Route::get('/orders/{id}', [OrderController::class, 'orderDetail']);
     
 });

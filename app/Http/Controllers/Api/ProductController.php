@@ -53,34 +53,51 @@ class ProductController extends Controller
     }
 
     public function search(Request $request)
-{
-    $query = ProductModal::where('is_active', 1);
+    {
+        $query = ProductModal::where('is_active', 1);
 
-    // Search by keyword
-    if ($request->keyword) {
-        $query->where('name', 'LIKE', '%' . $request->keyword . '%');
+        // Search by keyword
+        if ($request->keyword) {
+            $query->where('name', 'LIKE', '%' . $request->keyword . '%');
+        }
+
+        // Filter by category
+        if ($request->category_id) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Filter by price range
+        if ($request->min_price) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->max_price) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        $products = $query->latest()->paginate(10);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Search results',
+            'data' => $products
+        ]);
     }
 
-    // Filter by category
-    if ($request->category_id) {
-        $query->where('category_id', $request->category_id);
+    // ================= TRENDING PRODUCTS =================
+    public function trending(Request $request)
+    {
+        $limit = $request->limit ?? 10;
+
+        $products = ProductModal::where('is_active', 1)
+                        ->where('is_trending', 1)
+                        ->latest()
+                        ->paginate($limit);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Trending products fetched successfully',
+            'data' => $products
+        ]);
     }
-
-    // Filter by price range
-    if ($request->min_price) {
-        $query->where('price', '>=', $request->min_price);
-    }
-
-    if ($request->max_price) {
-        $query->where('price', '<=', $request->max_price);
-    }
-
-    $products = $query->latest()->paginate(10);
-
-    return response()->json([
-        'status' => true,
-        'message' => 'Search results',
-        'data' => $products
-    ]);
-}
 }

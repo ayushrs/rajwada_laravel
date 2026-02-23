@@ -60,6 +60,7 @@
                         <th data-priority="3">Price</th>
                         <th data-priority="3">Image</th>
                         <th data-priority="4">Stock</th>
+                        <th data-priority="5">Trending</th>
                         <th data-priority="6">Status</th>
                         <th data-priority="6">Action</th>
                       </tr>
@@ -84,6 +85,13 @@
                           @endif
                         </td>
                         <td>{{ $product->stock_quantity ?? 0}}</td>
+                        <td>
+                          @if($product->is_trending == 1)
+                          <span class="badge badge-warning">Trending</span>
+                          @else
+                          <span class="badge badge-secondary">-</span>
+                          @endif
+                        </td>
                         @if($product->is_active == 1)
                         <td>
                           <p class="label pull-right status-active">Active</p>
@@ -113,7 +121,7 @@
                       @endforeach
                       @else
                       <tr>
-                        <td colspan="10" class="text-center">No products found</td>
+                        <td colspan="11" class="text-center">No products found</td>
                       </tr>
                       @endif
                     </tbody>

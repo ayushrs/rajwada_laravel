@@ -253,6 +253,14 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="is_trending" name="is_trending" value="1" {{$product->is_trending == 1 ? 'checked' : ''}}>
+                                            <label class="form-check-label" for="is_trending">Trending</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
                                         <div class="form-floating">
                                             <select class="form-control" name="is_active" id="is_active" required>
                                                 <option value="1" {{$product->is_active == 1 ? 'selected' : ''}}>Active</option>

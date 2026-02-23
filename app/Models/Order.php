@@ -6,12 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'total_amount',
-        'status'
+       protected $fillable = [
+        'user_id','address_id','subtotal','tax','shipping',
+        'total','payment_method','payment_status','order_status'
     ];
-
       public function user()
     {
         return $this->belongsTo(User::class);

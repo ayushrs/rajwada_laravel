@@ -13,65 +13,89 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    // ================= PLACE ORDER =================
-    public function placeOrder(Request $request)
-    {
-        $user = $request->user();
 
-        $cartItems = Cart::with('product')
-                        ->where('user_id', $user->id)
-                        ->get();
+public function calculate(Request $request)
+{
+    $cartItems = Cart::with('product')
+        ->where('user_id', $request->user()->id)
+        ->get();
 
-        if ($cartItems->isEmpty()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Cart is empty'
-            ], 400);
-        }
-
-        DB::beginTransaction();
-
-        try {
-            $total = 0;
-
-            foreach ($cartItems as $item) {
-                $total += $item->product->price * $item->quantity;
-            }
-
-            $order = Order::create([
-                'user_id' => $user->id,
-                'total_amount' => $total,
-                'status' => 'pending'
-            ]);
-
-            foreach ($cartItems as $item) {
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_id' => $item->product_id,
-                    'quantity' => $item->quantity,
-                    'price' => $item->product->price
-                ]);
-            }
-
-            Cart::where('user_id', $user->id)->delete();
-
-            DB::commit();
-
-            return response()->json([
-                'status' => true,
-                'message' => 'Order placed successfully',
-                'order_id' => $order->id
-            ]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return response()->json([
-                'status' => false,
-                'message' => 'Order failed',
-                'error' => $e->getMessage()
-            ], 500);
-        }
+    if ($cartItems->isEmpty()) {
+        return response()->json(['message'=>'Cart is empty'], 400);
     }
+
+    $subtotal = 0;
+
+    foreach ($cartItems as $item) {
+        $subtotal += $item->product->price * $item->quantity;
+    }
+
+    $tax = $subtotal * 0.05; // 5%
+    $shipping = 50;
+    $total = $subtotal + $tax + $shipping;
+
+    return response()->json([
+        'subtotal' => $subtotal,
+        'tax' => $tax,
+        'shipping' => $shipping,
+        'total' => $total
+    ]);
+}
+
+    // ================= PLACE ORDER =================
+  public function placeOrder(Request $request)  
+{
+    $request->validate([
+        'address_id' => 'required|exists:addresses,id',
+        'payment_method' => 'required|in:cod,online'
+    ]);
+
+    $cartItems = Cart::with('product')
+        ->where('user_id', $request->user()->id)
+        ->get();
+
+    if ($cartItems->isEmpty()) {
+        return response()->json(['message'=>'Cart empty'], 400);
+    }
+
+    $subtotal = 0;
+    foreach ($cartItems as $item) {
+        $subtotal += $item->product->price * $item->quantity;
+    }
+
+    $tax = $subtotal * 0.05;
+    $shipping = 50;
+    $total = $subtotal + $tax + $shipping;
+
+    $order = Order::create([
+        'user_id' => $request->user()->id,
+        'address_id' => $request->address_id,
+        'subtotal' => $subtotal,
+        'tax' => $tax,
+        'shipping' => $shipping,
+        'total' => $total,
+        'payment_method' => $request->payment_method,
+        'payment_status' => $request->payment_method == 'cod' ? 'pending' : 'paid',
+    ]);
+
+    foreach ($cartItems as $item) {
+        OrderItem::create([
+            'order_id' => $order->id,
+            'product_id' => $item->product_id,
+            'quantity' => $item->quantity,
+            'price' => $item->product->price
+        ]);
+    }
+
+    Cart::where('user_id', $request->user()->id)->delete();
+
+    return response()->json([
+        'status'=>true,
+        'message'=>'Order placed successfully',
+        'order_id'=>$order->id
+    ]);
+}
+
 
     // ================= USER ORDERS =================
     public function myOrders(Request $request)
