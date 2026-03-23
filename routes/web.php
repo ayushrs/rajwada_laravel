@@ -48,7 +48,7 @@ Route::group(['prifix' => 'admin'], function () {
     });
 Route::group(['middleware'=>'admin.auth'],function(){
 
- Route::get('/web', [TeamController::class, 'admin_index'])->name('admin_index');
+ Route::get('/index', [TeamController::class, 'admin_index'])->name('admin_index');
  Route::get('/logout', [adminlogincontroller::class, 'admin_logout'])->name('admin_logout');
  Route::get('/profile', [adminlogincontroller::class, 'admin_profile'])->name('admin_profile');
  Route::get('/view_change_password', [adminlogincontroller::class, 'admin_change_pass_view'])->name('view_change_password');
