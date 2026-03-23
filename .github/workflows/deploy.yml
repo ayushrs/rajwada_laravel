@@ -1,0 +1,32 @@
+name: Deploy Laravel Code
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4   # 👈 updated
+
+      - name: Deploy Code via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4  # 👈 latest
+
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /
+          exclude: |
+            **/.git*
+            **/.env
+            **/node_modules/**
+            **/vendor/**
+            **/storage/**
