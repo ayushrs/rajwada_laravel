@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\HomeDataController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\OrderController;
@@ -31,6 +32,10 @@ Route::get('/products/trending', [ProductController::class, 'trending']);
 Route::get('/products/search', [ProductController::class, 'search']);
 Route::get('/products/detail/{id}', [ProductController::class, 'show']);
 Route::get('/products', [ProductController::class, 'index']);
+
+// Public category endpoints (no auth required)
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 
 

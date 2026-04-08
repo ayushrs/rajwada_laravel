@@ -90,7 +90,7 @@ class ProductController extends Controller
         $limit = $request->limit ?? 10;
 
         $products = ProductModal::where('is_active', 1)
-                        ->where('is_trending', 1)
+                        ->where('is_trending', 1)   
                         ->latest()
                         ->paginate($limit);
 
