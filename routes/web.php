@@ -34,6 +34,10 @@ use App\Http\Controllers\Auth\adminlogincontroller;
 // });
 //=========================================== FRONTEND =====================================================
 
+// deplo2@admin.rajwadaparidhan.com
+// 118.139.179.173
+// v}HxUZc*#Nu9
+
 Route::group(['prefix' => '/'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('/');
 });
