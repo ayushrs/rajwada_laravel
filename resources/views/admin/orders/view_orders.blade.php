@@ -80,19 +80,19 @@
                             </td>
 
                             <td>
-                              @if($order->order_status == 'delivered')
+                              @if($order->status == 'delivered')
                                 <span class="badge badge-success">Delivered</span>
-                              @elseif($order->order_status == 'cancelled')
+                              @elseif($order->status == 'cancelled')
                                 <span class="badge badge-danger">Cancelled</span>
                               @else
-                                <span class="badge badge-warning">{{ ucfirst($order->order_status) }}</span>
+                                <span class="badge badge-warning">{{ ucfirst($order->status) }}</span>
                               @endif
                             </td>
 
                             <td>{{ $order->created_at->format('d M Y') }}</td>
 
                             <td>
-                              {{-- <a href="{{ route('admin.orders.show', base64_encode($order->id)) }}" --}}
+                              <a href="{{ route('admin.orders.show', base64_encode($order->id)) }}"
                                  data-toggle="tooltip" title="View Order">
                                 <i class="fas fa-eye info-icon"></i>
                               </a>
