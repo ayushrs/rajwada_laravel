@@ -91,12 +91,12 @@
 
                             <td>{{ $order->created_at->format('d M Y') }}</td>
 
-                            <td>
+                            {{-- <td>
                               <a href="{{ route('admin.orders.show', base64_encode($order->id)) }}"
                                  data-toggle="tooltip" title="View Order">
                                 <i class="fas fa-eye info-icon"></i>
                               </a>
-                            </td>
+                            </td> --}}
                           </tr>
                         @endforeach
                       @else
