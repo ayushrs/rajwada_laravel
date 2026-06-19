@@ -55,6 +55,7 @@
                         <th>Order No</th>
                         <th>User</th>
                         <th>Total Amount</th>
+                        <th>Address</th>
                         <th>Payment</th>
                         <th>Order Status</th>
                         <th>Date</th>
@@ -72,7 +73,7 @@
                             <td>#{{ $order->order_number }}</td>
                             <td>{{ $order->user->name ?? 'Guest' }}</td>
                             <td>₹{{ number_format($order->total, 2) }}</td>
-
+                           <td>{{ $order->address }}</td>
                             <td>
                               <span class="badge badge-info">
                                 {{ ucfirst($order->payment_method) }}
