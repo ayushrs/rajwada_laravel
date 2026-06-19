@@ -12,7 +12,7 @@ class OrderController extends Controller
     // List orders
     public function index()
     {
-        $orders = Order::with(['user', 'address'])
+        $orders = Order::with(['user', 'shippingAddress'])
             ->orderBy('id', 'desc')
             ->paginate(20);
 
