@@ -71,7 +71,7 @@
                             <td>{{ $i }}</td>
                             <td>#{{ $order->order_number }}</td>
                             <td>{{ $order->user->name ?? 'Guest' }}</td>
-                            <td>₹{{ number_format($order->total_amount, 2) }}</td>
+                            <td>₹{{ number_format($order->total, 2) }}</td>
 
                             <td>
                               <span class="badge badge-info">
