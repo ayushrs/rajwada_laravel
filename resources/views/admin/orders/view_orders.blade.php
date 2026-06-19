@@ -58,7 +58,7 @@
                         <th>Payment</th>
                         <th>Order Status</th>
                         <th>Date</th>
-                        <th>Action</th>
+                        {{-- <th>Action</th> --}}
                       </tr>
                     </thead>
 
